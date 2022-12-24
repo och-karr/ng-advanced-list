@@ -1,0 +1,19 @@
+<mat-selection-list role="list" [(ngModel)]="selectedOptions" (ngModelChange)="change($event)" >
+  <mat-list-option role="listitem" value="{{item.id}}"*ngFor="let item of jobTags$ | async" >{{ item.name }}</mat-list-option>
+</mat-selection-list>
+
+<mat-form-field appearance="fill">
+  <mat-label>Choose sort</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let item of orders | async" (click)="sort(item)">
+      {{ item }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-list role="list">
+  <mat-list-item role="listitem" *ngFor="let item of refreshedList$ | async">
+    {{ item.title }} {{ item.jobTagIds }}
+    <button mat-raised-button color="warn" (click)="remove(item.id)">Remove</button>
+  </mat-list-item>
+</mat-list>
